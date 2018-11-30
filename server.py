@@ -6,5 +6,11 @@ app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 socketio = SocketIO(app)
 
 @app.route('/')
-def sessions():
+def index():
+
     return render_template('home.html')
+
+
+@app.route("/login")
+def login():
+    pass
