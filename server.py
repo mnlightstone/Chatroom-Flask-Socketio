@@ -7,10 +7,17 @@ socketio = SocketIO(app)
 
 @app.route('/')
 def index():
-
-    return render_template('home.html')
+    if (session.get('userid')):
+        return render_template('home.html')
+    else:
+        return render_template('login.html')
 
 
 @app.route("/login")
 def login():
-    pass
+    return render_template('login.html')
+
+
+@app.route("/register", methods =["GET", "POST"])
+def register():
+    return render_template('register.html')
