@@ -1,0 +1,54 @@
+body {
+    background-color: #4D384B;
+    color: black;
+
+}
+
+h1 {
+    font-weight: bold;
+
+}
+#login-container{
+background-color: #fff;
+width: 50%;
+margin: 0 auto;
+padding: 20px;
+text-align: center;
+margin-top: 100px;
+}
+
+.form-control{
+max-width: 50%;
+display:inline-block;
+}
+
+#register{
+font-size: .9em;
+}
+
+a{
+text-decoration: none;
+color: #018952;
+}
+
+input {
+width: 40%;
+margin: 5px;
+height: 35px;
+}
+
+.submit-button {
+width: 40%;
+height: 30px;
+background-color: #018952;
+color: white;
+}
+
+#register {
+font-size: .9em;
+}
+
+#error-message{
+width: 50%;
+margin: 0 auto;
+}

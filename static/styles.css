@@ -2,17 +2,9 @@
 
 body {
 background-color: #F9F9F9;
-
+font-size: 14px;
 }
 
-#sidebar {
-width: 15%;
-height: 100%;
-position:absolute;
-float: left;
-background-color: #4D384B;
-top: 0;
-}
 
 a{
 color: #c9c9c9;
@@ -23,10 +15,22 @@ a:hover{
     color: #fff;
 }
 
+
+#sidebar {
+    width: 15%;
+    height: 100%;
+    position:absolute;
+    float: left;
+    background-color: #4D384B;
+    top: 0;
+    font-size: 16px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 .sidebar-list-div{
-font-size: .8em;
-margin-top: 20%;
-padding-left: 20px;
+    margin-top: 20%;
+    padding-left: 20px;
 }
 
 .sidebar-list-div:hover{
@@ -34,8 +38,8 @@ padding-left: 20px;
 }
 
 .plus-sign-sidebar {
-float:right;
-margin-right: 10px;
+    float:right;
+    margin-right: 10px;
 }
 
 /* #sidebar-users-online{
