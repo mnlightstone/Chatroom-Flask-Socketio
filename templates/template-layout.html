@@ -20,14 +20,17 @@
     <!--my javascript-->
     <script src="static/scripts.js"></script>
 
+    <!--JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 
 <body>
 
 <!--sidebar-->
 <div id = "sidebar">
-        <div id = "sidebar-top-left" class= "sidebar-list-div">
-            {{ session.get('username') }}
+        <div id = "sidebar-top-left" class= "">
+            {{ session.get('displayName') }}
 
             <img class="avatar-img" src="static/images/jeff{{ session.get('avatar') }}.jpg">
 
@@ -37,7 +40,7 @@
         <a href="#" id ="add-channel-link" class="plus-sign-sidebar">+</a>
     </div>
     <div id = "sidebar-direct-messages" class= "sidebar-list-div">
-        <a href="#">Direct Messages</a>
+        <a href="#">Messages</a>
         <a href="#" id ="add-direct-message-link" class="plus-sign-sidebar">+</a>
     </div>
 
@@ -65,19 +68,15 @@
             <span id="close-add-channel" class="close">X<br>Esc</span>
             <h1>Create a channel</h1>
             <p>Channels are where your members communicate.</p>
-            <form>
+            <form id = "add-channel-form">
                 <div class="form-group">
                     <label for="create-channel-name">Name</label>
-                    <input type="text" class="form-control" id="create-channel-name" placeholder="# e.g. leads" required>
+                    <input type="text" name="roomName" class="form-control" id="create-channel-name" placeholder="# e.g. leads" required>
                 </div>
-                <div class="form-group">
-                    <label for="create-channel-purpose">Purpose (optional)</label>
-                    <input type="text" class="form-control" id="create-channel-purpose" placeholder="Another input" >
-                </div>
-                <div class="form-group">
-                    <label for="create-channel-send-invites">Send invites to (optional)</label>
-                    <input type="text" class="form-control" id="create-channel-send-invites" placeholder="Search by name" >
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label for="create-channel-send-invites">Send invites to (optional)</label>-->
+                    <!--<input type="text" class="form-control" id="create-channel-send-invites" placeholder="Search by name" >-->
+                <!--</div>-->
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
@@ -94,7 +93,7 @@
 
             <span id="close-direct-message" class="close">X<br>Esc</span>
             <h1>Direct Messages</h1>
-            <form>
+            <form action="makeRoom" method="POST">
                 <div class="form-group">
                     <label for="create-channel-name">Name</label>
                     <input type="text" class="form-control" id="new-direct-message" placeholder="Find or start a conversation" required>

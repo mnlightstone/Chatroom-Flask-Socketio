@@ -3,14 +3,59 @@ window.onload = function() {
     newDirectMessage();
 
 var socket = io.connect('http://' + document.domain + ':' + location.port);
+var firstConnect = true;
+
+    //connection event
     socket.on('connect', function() {
-        socket.emit('my event', {data: 'I\'m connected!'});
+        socket.emit('connection event');
     });
 
-
+    //someone joined
+    socket.on('someone connected', function(users, avatars){
+        console.log("someone connected")
+        console.log(users)
+        console.log(avatars)
+        if (users == null){
+        return
+        }
+            if (firstConnect) {
+                console.log("first connect running")
+                firstConnect = false;
+                let count = 0;
+                    console.log(users)
+                    for (var key in users) {
+                        let divToAdd = '<div class = "one-user-online-div">' + users[key] + "</div>"
+                         $( '#sidebar-users-online' ).append(divToAdd)
+                         count ++;
+                        }
+                    // if we are already online and this event is from another user joining, add just the new user
+                    }
+             else {
+                    let newestUser = users.length - 1;
+                    $( '#usersonline' ).append('<a href = "one-user-online-div">' + users[newestUser] + "</div>")
+                }
+        });
 
 
 } //end window.onload
+
+
+
+ var form = $( 'add-channel-form' ).on( 'submit', function( e ) {
+
+
+        // get username and message
+        let roomName = $( 'input.message' ).val()
+
+        // send JSON in the form of a Python dictionary
+        socket.emit( 'joinroom', {
+            message : roomName
+            } ) //end socket.emit
+
+        // empty input message field
+        $( 'input.message' ).val( '' ).focus()
+
+        }) // end form handler
 
 function newDirectMessage(){
  // Get the modal
@@ -43,7 +88,6 @@ function addPopUpListeners(popup, btn, span){
     btn.onclick = function() {
         popup.style.display = "block";
     }
-
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
        popup.style.display = "none";
@@ -56,13 +100,15 @@ function addPopUpListeners(popup, btn, span){
             popup.style.display = "none";
         }
     }
+
+
 }
 
 document.onkeyup = function(evt) {
     evt = evt || window.event;
     channelPopup = document.getElementById('add-Channel-popup');
     directMessagePopup = document.getElementById('Direct-Channel-popup');
-    //if the esc key was pressed AND either of the popups are currently active
+    //if the esc key was pressed and either of the popups are currently active
     if (evt.keyCode == 27 &&
     (directMessagePopup.style.display == "block" ||
      channelPopup.style.display == "block" )) {
