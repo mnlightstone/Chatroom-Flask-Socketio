@@ -11,5 +11,5 @@ class User(db.Model):
     username = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
     display_name = db.Column(db.String, nullable=False)
-    avatar_choice = db.Column(db.Integer, nullable=False)
+    avatar = db.Column(db.Integer, nullable=False)
 

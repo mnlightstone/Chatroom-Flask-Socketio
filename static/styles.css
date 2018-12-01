@@ -17,16 +17,18 @@ a:hover{
 
 
 #sidebar {
+    color: #c9c9c9;
     width: 15%;
     height: 100%;
     position:absolute;
     float: left;
     background-color: #4D384B;
     top: 0;
-    font-size: 16px;
+    font-size: 12px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
 
 .sidebar-list-div{
     margin-top: 20%;
@@ -99,3 +101,10 @@ font-size:1.1em;
 color:grey;
 font-size:.8em;
 }
+
+
+#sidebar-top-left {
+margin-bottom: 60px;
+}
+
+

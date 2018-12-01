@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Collapsible sidebar using Bootstrap 4</title>
+    <!--socket.io-->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -25,7 +26,12 @@
 
 <!--sidebar-->
 <div id = "sidebar">
+        <div id = "sidebar-top-left" class= "sidebar-list-div">
+            {{ session.get('username') }}
 
+            <img class="avatar-img" src="static/images/jeff{{ session.get('avatar') }}.jpg">
+
+        </div>
     <div id = "sidebar-channels" class= "sidebar-list-div">
         <a href="#">Channels</a>
         <a href="#" id ="add-channel-link" class="plus-sign-sidebar">+</a>
