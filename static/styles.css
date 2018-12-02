@@ -1,140 +1,19 @@
-
-
-body {
-background-color: #F9F9F9;
-font-size: 14px;
-padding-bottom: 60px;
+#online-users {
+width:50%;
+display: inline;
 }
 
-
-a{
-color: #c9c9c9;
+#chat-message{
 }
 
-a:hover{
-    text-decoration: none;
-    color: #fff;
-}
-
-
-#sidebar {
-    color: #c9c9c9;
-    width: 15%;
-    height: 100%;
-    position: fixed;
-    float: left;
-    background-color: #4D384B;
-    top: 0;
-    font-size: 12px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-
-#sidebar-top-left {
-padding: 10px;
-}
-
-
-.sidebar-list-div{
-    margin-top: 20%;
-    padding-left: 20px;
-}
-
-.one-user-online-div:hover{
-    background-color:#2d242c;
-}
-
-.plus-sign-sidebar {
-    float:right;
-    margin-right: 10px;
-}
-
-/* #sidebar-users-online{
-margin-top: 200%;
-} */
-
-.avatar-img{
-height: 45px;
-float:left;
-margin-right: 7px;
-}
-
-.chat-div{
-margin-top: 15px;
-}
-
-
-#main-content-not-sidebar {
-position: relative;
-padding-left:10px;
-margin-left: 15%;
-overflow-x: wrap;
-overflow-y: auto;
-height:110%;
-}
-
-.chat-image {
-max-height: 500px;
-max-width: 70%;
-margin-top: 3px;
-}
-
-.chat-message-body{
-margin-left: 50px;
-}
-
-.popup-content{
-height: 100%;
-background-color: white;
-padding: 50px;
-}
-
-.popup-container {
-margin: 0 auto;
-height: 100%;
-vertical-align: middle;
-text-align: left;
-width: 75%;
-}
-
-.close{
-margin-top: 10px;
-margin-right: 20px;
-font-size: .75em;}
-
-.chat-username{
-font-weight:bold;
-font-size:1.1em;
-}
-
-.chat-timestamp{
-color:grey;
-font-size:.8em;
-}
-
-
-
-#chat-enter-message-div{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    margin-left: -5%;
-    background-color: #4D384B;
-    color: white;
-    text-align: center;
-}
-
-#submitButtonChatroom{
-background-color:grey;
+div {
 border: 1px solid black;
-
 }
 
-#messageInputChatroom {
-    border: 1px solid black;
-    margin: 0 auto;
-    width: 50%;
-
-
+#chat-messages{
+overflow: wrap;
 }
+
+#messages-go-here{
+height: 50%;
+overflow: scroll}

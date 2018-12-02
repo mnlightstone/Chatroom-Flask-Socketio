@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session
 from flask_socketio import SocketIO, join_room, leave_room
+
 from random import randrange
 
 # Import table definitions.
@@ -11,8 +12,6 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
-rooms = []
-directMessages = []
 
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://pvnzvedyxjhwxy:1d431f5a967289a935eb78ecabb44215e08f9b78b32e581606bf3b817404056b@ec2-54-227-249-201.compute-1.amazonaws.com:5432/dalq0a04mr5gi9"
@@ -24,20 +23,23 @@ db.init_app(app)
 
 @app.route('/', methods =["GET", "POST"])
 def index():
-
-    # if user is already logged in, return home page
-    if session.get('userid'):
-        print("1")
-        print(session['userid'])
-        return render_template('home.html', users=usersOnlineDisplayNames)
+    currDisplayName = session.get('displayName')
 
     # if user is not logged in and are coming to the page for the first time, return login page
+    print(currDisplayName)
+    print(usersOnlineDisplayNames)
+
     if request.referrer is None:
-        print("2")
+        print("50")
         return render_template('login.html')
 
-    else:
-        previousPage = request.referrer.replace(request.url_root, '')
+
+    # if user is already logged in, return home page
+    if currDisplayName in usersOnlineDisplayNames:
+        return render_template('home.html')
+
+
+    previousPage = request.referrer.replace(request.url_root, '')
 
     # registration logic
     if previousPage == "register" and request.method == "POST":
@@ -58,28 +60,27 @@ def register():
     return render_template('register.html')
 
 
-@app.route("/makeRoom", methods=["POST"])
-def makeRoom():
-    username = session.get("username")
-    room = request.form.get("roomName")
-    join_room(room)
-    socketio.emit(username + ' has entered the room.', room=room)
-    return render_template("room.html", room=room)
-
-
-@app.route("/<string:room>", methods=["GET"])
-def rooms():
-    # if room exists already, return room
-    return render_template("room.html", room=rooms)
-
-    # else create room
-
 
 # socketio events
 @socketio.on('connection event')
 def connectionEvent():
-    print(session)
-    socketio.emit('someone connected', (usersOnlineDisplayNames, usersOnlineAvatars))
+    print("*************session*", session)
+    newUserDisplayName = session.get('displayName')
+    newUseravatar = session.get('avatar')
+    socketio.emit('someone connected', (newUserDisplayName, newUseravatar))
+
+
+@socketio.on('disconnect')
+def disconnect():
+    print("***************** disconnection ******************")
+    indexOfUser = usersOnlineDisplayNames.index(session.get("displayName"))
+    usersOnlineDisplayNames.pop(indexOfUser)
+    socketio.emit('disconnection event', indexOfUser)
+
+@socketio.on('message')
+def handleMessage(msg):
+    messageAuthor = session.get("displayName")
+    socketio.emit("incoming message", (msg, messageAuthor))
 
 
 
@@ -141,7 +142,7 @@ def updateSession(username):
     session['avatar'] = user.avatar
     usersOnlineDisplayNames.append(user.display_name.title())
     usersOnlineAvatars.append(user.avatar)
-
+    print("*******updateSessions running", usersOnlineDisplayNames, usersOnlineAvatars)
 
 if __name__ == '__main__':
     socketio.run(app)

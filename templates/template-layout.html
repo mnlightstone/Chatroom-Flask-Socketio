@@ -1,108 +1,12 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!--socket.io-->
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
-
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
-
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
-    <!--my javascript-->
-    <script src="static/scripts.js"></script>
-
-    <!--JQUERY-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
 
 <body>
 
-<!--sidebar-->
-<div id = "sidebar">
-        <div id = "sidebar-top-left" class= "">
-            {{ session.get('displayName') }}
 
-            <img class="avatar-img" src="static/images/jeff{{ session.get('avatar') }}.jpg">
-
-        </div>
-    <div id = "sidebar-channels" class= "sidebar-list-div">
-        <a href="#">Channels</a>
-        <a href="#" id ="add-channel-link" class="plus-sign-sidebar">+</a>
-    </div>
-    <div id = "sidebar-direct-messages" class= "sidebar-list-div">
-        <a href="#">Messages</a>
-        <a href="#" id ="add-direct-message-link" class="plus-sign-sidebar">+</a>
-    </div>
-
-    <div id = "sidebar-users-online" class= "sidebar-list-div">
-
-        <a href="#"> Users Online</a>
-
-    </div>
-
-    <span id = "add-a-channel" class="glyphicon glyphicon-plus"></span>
-</div>
-
-<h3><center>{% block heading %} {% endblock %}</center></h3>
-
-<div id = "main-content-not-sidebar">
-    {% block body %}   {% endblock %}
-</div>
-
-<!-- Add-Channel Popup -->
-<div id="add-Channel-popup" class="modal">
-
-    <!-- Modal content -->
-    <div class="popup-content">
-        <div class="popup-container">
-            <span id="close-add-channel" class="close">X<br>Esc</span>
-            <h1>Create a channel</h1>
-            <p>Channels are where your members communicate.</p>
-            <form id = "add-channel-form">
-                <div class="form-group">
-                    <label for="create-channel-name">Name</label>
-                    <input type="text" name="roomName" class="form-control" id="create-channel-name" placeholder="# e.g. leads" required>
-                </div>
-                <!--<div class="form-group">-->
-                    <!--<label for="create-channel-send-invites">Send invites to (optional)</label>-->
-                    <!--<input type="text" class="form-control" id="create-channel-send-invites" placeholder="Search by name" >-->
-                <!--</div>-->
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Direct-Message Popup -->
-
-<div id="Direct-Channel-popup" class="modal">
-
-    <!-- Modal content -->
-    <div class="popup-content">
-        <div class="popup-container">
-
-            <span id="close-direct-message" class="close">X<br>Esc</span>
-            <h1>Direct Messages</h1>
-            <form action="makeRoom" method="POST">
-                <div class="form-group">
-                    <label for="create-channel-name">Name</label>
-                    <input type="text" class="form-control" id="new-direct-message" placeholder="Find or start a conversation" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Go</button>
-            </form>
-        </div>
-    </div>
-</div>
 
 </body>
 </html>
