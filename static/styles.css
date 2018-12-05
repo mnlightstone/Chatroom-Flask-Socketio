@@ -7,7 +7,7 @@ display: inline;
 }
 
 div {
-border: 1px solid black;
+/* border: 1px solid black; */
 }
 
 #chat-messages{
@@ -20,5 +20,30 @@ overflow: scroll}
 
 .avatar-sidebar-img{
 height: 50px;
+margin-right: 3px;
+}
+
+.my-messages, .other-messages{
+max-width: 66%;
+padding-top: 5px;
+}
+.my-messages{
+background-color: #128496;
+color: white;
+text-align: right;
+margin-left: auto;
+margin-right: 0;
+padding-right: 10px;
+margin-bottom: 5px;
+min-height: 40px;
+vertical-align: middle;
+}
+
+.other-messages{
+}
+
+.messages-avatar {
+height: 40px;
+border-radius: 50%;
 margin-right: 3px;
 }

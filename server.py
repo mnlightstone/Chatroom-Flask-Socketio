@@ -73,12 +73,14 @@ def disconnect():
     displayName = session.get("displayName")
     indexOfUser = usersOnlineDisplayNames.index(session.get("displayName"))
     usersOnlineDisplayNames.pop(indexOfUser)
-    socketio.emit('disconnection event', displayName)
+    socketio.emit('disconnect event', displayName)
+    print("Running disconnection event")
 
 @socketio.on('message')
 def handleMessage(msg):
     messageAuthor = session.get("displayName")
-    socketio.emit("incoming message", (msg, messageAuthor))
+    userAvatar = session.get('avatar')
+    socketio.emit("incoming message", (msg, messageAuthor, userAvatar))
 
 
 
