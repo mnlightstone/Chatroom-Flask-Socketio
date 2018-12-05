@@ -19,12 +19,16 @@ window.onload = function() {
     }
   })
 
-  socket.on('someone connected', function(displayName, avatar) {
+  socket.on('someone connected', function(displayName, avatar, usersOnlineDisplayNames, usersOnlineAvatars) {
     if (firstConnect){
         myName = displayName;
         firstConnect = false;
+        for (var i = 0; i < usersOnlineAvatars.length; i++){
+            addUserToOnlineDiv(usersOnlineDisplayNames[i], usersOnlineAvatars[i])
+        }
+    } else {
+        addUserToOnlineDiv(displayName, avatar)
     }
-    addUserToOnlineDiv(displayName, avatar)
   }); // end someone connected
 
   socket.on( 'disconnect event',  function(userWhoLeft) {

@@ -64,7 +64,7 @@ def connectionEvent():
     print("*************session*", session)
     newUserDisplayName = session.get('displayName')
     newUseravatar = session.get('avatar')
-    socketio.emit('someone connected', (newUserDisplayName, newUseravatar))
+    socketio.emit('someone connected', (newUserDisplayName, newUseravatar,  usersOnlineDisplayNames, usersOnlineAvatars))
 
 
 @socketio.on('disconnect')
@@ -73,6 +73,7 @@ def disconnect():
     displayName = session.get("displayName")
     indexOfUser = usersOnlineDisplayNames.index(session.get("displayName"))
     usersOnlineDisplayNames.pop(indexOfUser)
+    usersOnlineAvatars.pop(indexOfUser)
     socketio.emit('disconnect event', displayName)
     print("Running disconnection event")
 
