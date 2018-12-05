@@ -18,19 +18,29 @@ window.onload = function() {
 
 
 
-  socket.on('disconnection event', function(userWhoLeft) {
-    //socket.emit('disconnection event');
-    console.log(userWhoLeft + " has left");
-  });
-
-
   socket.on('someone connected', function(displayName, avatar) {
     console.log("someone arrived")
-    $("#online-users-ul").append('<li>' + displayName + '</li>')
+    $("#online-users-div").append(
+    '<div class = ".' + displayName + '">' +
+    '<img class = "avatar-sidebar-img" src=static/images/jeff' + avatar + ".jpg>" +
+    displayName +
+    '</div>')
+
     console.log(displayName)
     console.log(avatar)
   });
 } //end onload
+
+  socket.on('disconnection event', function(userWhoLeft) {
+    //socket.emit('disconnection event');
+    console.log(userWhoLeft + " has left");
+    let usersDiv = "." + userWhoLeft;
+    $(usersDiv).remove();
+
+
+  });
+
+
 
 
 function addSubmitButtonListener(socket){

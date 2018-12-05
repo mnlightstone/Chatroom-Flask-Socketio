@@ -26,9 +26,6 @@ def index():
     currDisplayName = session.get('displayName')
 
     # if user is not logged in and are coming to the page for the first time, return login page
-    print(currDisplayName)
-    print(usersOnlineDisplayNames)
-
     if request.referrer is None:
         print("50")
         return render_template('login.html')
@@ -73,9 +70,10 @@ def connectionEvent():
 @socketio.on('disconnect')
 def disconnect():
     print("***************** disconnection ******************")
+    displayName = session.get("displayName")
     indexOfUser = usersOnlineDisplayNames.index(session.get("displayName"))
     usersOnlineDisplayNames.pop(indexOfUser)
-    socketio.emit('disconnection event', indexOfUser)
+    socketio.emit('disconnection event', displayName)
 
 @socketio.on('message')
 def handleMessage(msg):

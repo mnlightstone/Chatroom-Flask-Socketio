@@ -17,3 +17,8 @@ overflow: wrap;
 #messages-go-here{
 height: 50%;
 overflow: scroll}
+
+.avatar-sidebar-img{
+height: 50px;
+margin-right: 3px;
+}
