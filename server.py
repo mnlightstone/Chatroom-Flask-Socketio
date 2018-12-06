@@ -57,11 +57,9 @@ def register():
     return render_template('register.html')
 
 
-
 # socketio events
 @socketio.on('connection event')
 def connectionEvent():
-    print("*************session*", session)
     newUserDisplayName = session.get('displayName')
     newUseravatar = session.get('avatar')
     socketio.emit('someone connected', (newUserDisplayName, newUseravatar,  usersOnlineDisplayNames, usersOnlineAvatars))
@@ -69,20 +67,17 @@ def connectionEvent():
 
 @socketio.on('disconnect')
 def disconnect():
-    print("***************** disconnection ******************")
     displayName = session.get("displayName")
     indexOfUser = usersOnlineDisplayNames.index(session.get("displayName"))
     usersOnlineDisplayNames.pop(indexOfUser)
     usersOnlineAvatars.pop(indexOfUser)
     socketio.emit('disconnect event', displayName)
-    print("Running disconnection event")
 
 @socketio.on('message')
 def handleMessage(msg):
     messageAuthor = session.get("displayName")
     userAvatar = session.get('avatar')
     socketio.emit("incoming message", (msg, messageAuthor, userAvatar))
-
 
 
 # helper methods
@@ -116,11 +111,11 @@ def runLoginAction():
         updateSession(username=username)
         return render_template('home.html')
 
+
 def checkUsernameUniqueness(username):
     # check if username or display name is already in database
     usersWithUsername = User.query.filter_by(username=username).count()
     if usersWithUsername > 0:
-        print("returning false")
         return False
     else:
         return True
@@ -143,7 +138,7 @@ def updateSession(username):
     session['avatar'] = user.avatar
     usersOnlineDisplayNames.append(user.display_name.title())
     usersOnlineAvatars.append(user.avatar)
-    print("*******updateSessions running", usersOnlineDisplayNames, usersOnlineAvatars)
+
 
 if __name__ == '__main__':
     socketio.run(app)
