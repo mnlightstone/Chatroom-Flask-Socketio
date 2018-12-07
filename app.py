@@ -7,8 +7,7 @@ from random import randrange
 from models import *
 
 app = Flask(__name__)
-
-
+app.debug = False
 socketio = SocketIO(app)
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []

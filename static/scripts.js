@@ -6,7 +6,7 @@ window.onload = function() {
   addSubmitButtonListener(socket);
 
   socket.on('connect', function() {
-    socket.emit('connection event');
+    window.setTimeout(function() { socket.emit('connection event'); }, 5000);
     console.log("emiting connection event")
   });
 
@@ -57,7 +57,6 @@ function addSubmitButtonListener(socket){
     }
   })
 }
-
 
 function addMessageFromSelf(avatar, author, msg){
   $("#messages-div").append('<div class = "my-messages">' +
