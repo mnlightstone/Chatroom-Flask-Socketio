@@ -12,10 +12,12 @@ window.onload = function() {
 
   socket.on('incoming message', function(msg, author, avatar){
     if (author == myName){
-      $("#messages-div").append('<div class = "my-messages">' + msg + '</div>')
+      addMessageFromSelf(avatar, author, msg);
     } else {
       addMessageFromOtherUser(avatar, author, msg);
     }
+      var height =  $( '#messages-div' ).height() + 10;
+      $( '#messages-div' ).scrollTop(height);
   })
 
   socket.on('someone connected', function(displayName, avatar, usersOnlineDisplayNames, usersOnlineAvatars) {
@@ -55,6 +57,14 @@ function addSubmitButtonListener(socket){
     }
   })
 }
+
+
+function addMessageFromSelf(avatar, author, msg){
+  $("#messages-div").append('<div class = "my-messages">' +
+    msg +
+  "<img class = 'messages-avatar' src = static/images/jeff" + avatar + ".jpg>" +
+  '</div>'
+)};
 
 function addMessageFromOtherUser(avatar, author, msg){
   $("#messages-div").append('<div class = "other-messages">' +

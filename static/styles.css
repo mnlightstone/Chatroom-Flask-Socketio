@@ -1,6 +1,9 @@
+
 #online-users {
+}
 width:50%;
 display: inline;
+
 }
 
 #chat-message{
@@ -11,12 +14,14 @@ div {
 }
 
 #chat-messages{
-overflow: wrap;
 }
 
-#messages-go-here{
+#online-users-div, #messages-div{
 height: 50%;
-overflow: scroll}
+border: 1px solid black;
+overflow-y: scroll;
+
+}
 
 .avatar-sidebar-img{
 height: 50px;
@@ -24,26 +29,32 @@ margin-right: 3px;
 }
 
 .my-messages, .other-messages{
-max-width: 66%;
-padding-top: 5px;
+max-width: 50%;
+padding: 5px;
+word-wrap: break-word;
+
 }
+
 .my-messages{
 background-color: #128496;
 color: white;
 text-align: right;
 margin-left: auto;
-margin-right: 0;
-padding-right: 10px;
 margin-bottom: 5px;
 min-height: 40px;
 vertical-align: middle;
+border-radius: 7px 0px 0px 7px;
 }
 
 .other-messages{
+background-color: #d6d6d6;
+border-radius: 0px 7px 7px 0px;
+
 }
 
 .messages-avatar {
 height: 40px;
 border-radius: 50%;
 margin-right: 3px;
+margin-left: 5px;
 }
