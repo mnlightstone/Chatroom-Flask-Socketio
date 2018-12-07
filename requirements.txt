@@ -3,12 +3,16 @@ dnspython==1.15.0
 eventlet==0.24.1
 Flask==1.0.2
 Flask-SocketIO==3.0.2
+Flask-SQLAlchemy==2.3.2
 greenlet==0.4.15
+gunicorn==19.9.0
 itsdangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.1.0
 monotonic==1.5
+psycopg2==2.7.6.1
 python-engineio==3.0.0
 python-socketio==2.1.0
 six==1.11.0
+SQLAlchemy==1.2.14
 Werkzeug==0.14.1
