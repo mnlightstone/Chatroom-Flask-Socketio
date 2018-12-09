@@ -1,12 +1,14 @@
 window.onload = function() {
-  var socket = io.connect('https://' + document.domain + ':' + location.port);
+
+                            //https for heroku; http for localHost
+  var socket = io.connect('https://' + document.domain + ':' + location.port, {transports: ['websocket']});
   var firstConnect = true;
   var myName = "";
 
   addSubmitButtonListener(socket);
 
   socket.on('connect', function() {
-    window.setTimeout(function() { socket.emit('connection event'); }, 5000);
+    socket.emit('connection event');
     console.log("emiting connection event")
   });
 
