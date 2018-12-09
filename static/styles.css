@@ -1,26 +1,7 @@
-
-#online-users {
-}
-width:50%;
-display: inline;
-
-}
-
-#chat-message{
-}
-
-div {
-/* border: 1px solid black; */
-}
-
-#chat-messages{
-}
-
 #online-users-div, #messages-div{
 height: 50%;
 border: 1px solid black;
 overflow-y: scroll;
-
 }
 
 .avatar-sidebar-img{
@@ -33,7 +14,6 @@ max-width: 50%;
 padding: 5px;
 word-wrap: break-word;
 margin-bottom: 5px;
-
 }
 
 .my-messages{
@@ -49,7 +29,6 @@ border-radius: 7px 0px 0px 7px;
 .other-messages{
 background-color: #d6d6d6;
 border-radius: 0px 7px 7px 0px;
-
 }
 
 .messages-avatar {
