@@ -1,6 +1,6 @@
 window.onload = function() {
 
-                            //https for heroku; http for localHost
+                         //https for deployment; http for localHost
   var socket = io.connect('https://' + document.domain + ':' + location.port, {transports: ['websocket']});
   var firstConnect = true;
   var myName = "";
@@ -29,14 +29,15 @@ window.onload = function() {
       for (var i = 0; i < usersOnlineAvatars.length; i++){
         addUserToOnlineDiv(usersOnlineDisplayNames[i], usersOnlineAvatars[i])
       }
-    }
-    addUserToOnlineDiv(displayName, avatar)
+    } // end if
+    else {
+        addUserToOnlineDiv(displayName, avatar)
+    } // end else
   }); // end someone connected
 
   socket.on( 'disconnect event',  function(userWhoLeft) {
+    console.log("disconnection detected")
     let divToRemove = "." + userWhoLeft + "-user-online-div";
-      console.log('disconnection: ' + userWhoLeft + " | divToRemove = " + divToRemove)
-
     $(divToRemove).remove();
   });
 

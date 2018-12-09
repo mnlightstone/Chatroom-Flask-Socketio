@@ -32,6 +32,7 @@ margin-right: 3px;
 max-width: 50%;
 padding: 5px;
 word-wrap: break-word;
+margin-bottom: 5px;
 
 }
 
@@ -40,7 +41,6 @@ background-color: #128496;
 color: white;
 text-align: right;
 margin-left: auto;
-margin-bottom: 5px;
 min-height: 40px;
 vertical-align: middle;
 border-radius: 7px 0px 0px 7px;
