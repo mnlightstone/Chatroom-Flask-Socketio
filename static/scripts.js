@@ -29,13 +29,14 @@ window.onload = function() {
       for (var i = 0; i < usersOnlineAvatars.length; i++){
         addUserToOnlineDiv(usersOnlineDisplayNames[i], usersOnlineAvatars[i])
       }
-    } else {
-      addUserToOnlineDiv(displayName, avatar)
     }
+    addUserToOnlineDiv(displayName, avatar)
   }); // end someone connected
 
   socket.on( 'disconnect event',  function(userWhoLeft) {
     let divToRemove = "." + userWhoLeft + "-user-online-div";
+      console.log('disconnection: ' + userWhoLeft + " | divToRemove = " + divToRemove)
+
     $(divToRemove).remove();
   });
 
