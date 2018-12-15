@@ -113,7 +113,7 @@ def runLoginAction():
     if user is None or user.password != password:
         return render_template('login.html', error="Incorrect credentials. Please try again.")
     else:
-        updateSession(username=username)
+        updateSession(user=user)
         return render_template('home.html')
 
 
@@ -135,10 +135,9 @@ def checkDisplayNameUniqueness(displayName):
         return True
 
 
-def updateSession(username):
-    user = User.query.filter_by(username=username).first()
+def updateSession(user):
     session['displayName'] = user.display_name.title()
-    session['username'] = username
+    session['username'] = user.username
     session['userid'] = user.user_id
     session['avatar'] = user.avatar
     usersOnlineDisplayNames.append(user.display_name.title())
