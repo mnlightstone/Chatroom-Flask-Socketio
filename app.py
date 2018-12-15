@@ -66,10 +66,15 @@ def connectionEvent():
 
 @socketio.on('disconnect')
 def disconnect():
+    print(session)
     displayName = session.get("displayName")
     indexOfUser = usersOnlineDisplayNames.index(session.get("displayName"))
     usersOnlineDisplayNames.pop(indexOfUser)
     usersOnlineAvatars.pop(indexOfUser)
+    session.pop('token', None)
+
+    session.clear()
+
     socketio.emit('disconnect event', displayName)
 
 @socketio.on('message')
