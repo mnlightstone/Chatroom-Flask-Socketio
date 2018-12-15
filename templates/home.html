@@ -28,7 +28,10 @@
 
 <body>
 <div class = "container">
+                        <h4>Hello, {{session.username.title()}}!</h4>
+
     <div class="row justify-content-center ">
+
         <div class="col-lg-9 col-md-9 col-sm-9">
             <div id = "chat-messages">
                 <h4>Messages</h4>
@@ -39,13 +42,17 @@
                     <div class="input-group-prepend">
                     </div>
                     <textarea id = "myMessage" class="form-control" aria-label="With textarea"></textarea>
-                    <button id = "sendButton" class="btn btn-info">Send</button>
                 </div>
+                <button id = "sendButton" class="btn btn-info">Send</button>
+
             </div>
         </div><!-- end col -->
         <div class="col-lg-3 col-md-3 col-sm-3">
+
             <h4>Online Users </h4>
-            <div id = "online-users-div"></div>
+            <div id = "online-users-div">
+
+            </div>
 
         </div><!-- end col -->
     </div> <!-- end row -->

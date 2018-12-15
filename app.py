@@ -16,7 +16,7 @@ app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://pvnzvedyxjhwxy:1d431f5a967289a935eb78ecabb44215e08f9b78b32e581606bf3b817404056b@ec2-54-227-249-201.compute-1.amazonaws.com:5432/dalq0a04mr5gi9"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Link the Flask app with the database (no Flask app is actually being run yet).
+# Link the Flask app with the database (no Flask app is actually being run yet)
 db.init_app(app)
 
 
@@ -29,14 +29,11 @@ def index():
         print("50")
         return render_template('login.html')
 
-
     # if user is already logged in, return home page
     if currDisplayName in usersOnlineDisplayNames:
         return render_template('home.html')
 
-
     previousPage = request.referrer.replace(request.url_root, '')
-
     # registration logic
     if previousPage == "register" and request.method == "POST":
         return runRegisterAction()

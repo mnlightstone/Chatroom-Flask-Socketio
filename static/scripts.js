@@ -9,7 +9,6 @@ window.onload = function() {
 
   socket.on('connect', function() {
     socket.emit('connection event');
-    console.log("emiting connection event")
   });
 
   socket.on('incoming message', function(msg, author, avatar){
@@ -32,6 +31,7 @@ window.onload = function() {
     } // end if
     else {
         addUserToOnlineDiv(displayName, avatar)
+        addUserChangeMessage(displayName, true)
     } // end else
   }); // end someone connected
 
@@ -39,6 +39,7 @@ window.onload = function() {
     console.log("disconnection detected")
     let divToRemove = "." + userWhoLeft + "-user-online-div";
     $(divToRemove).remove();
+    addUserChangeMessage(userWhoLeft, false)
   });
 
 } //end onload
@@ -60,6 +61,13 @@ function addSubmitButtonListener(socket){
       $('#myMessage').val('')
     }
   })
+}
+
+function addUserChangeMessage(displayName, connectionEvent){
+    var joinedOrLeft;
+    (connectionEvent) ? joinedOrLeft = "joined" : joinedOrLeft = "left";
+    $("#messages-div").append('<div class = "user-joined-message">' +
+    displayName + " has " + joinedOrLeft + " the room. </div>")
 }
 
 function addMessageFromSelf(avatar, author, msg){

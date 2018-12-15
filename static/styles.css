@@ -1,8 +1,11 @@
 #online-users-div, #messages-div{
-height: 50%;
+height: 70%;
 border: 1px solid black;
 overflow-y: scroll;
 }
+
+#sendButton{
+float:right;}
 
 .avatar-sidebar-img{
 height: 50px;
@@ -31,9 +34,19 @@ background-color: #d6d6d6;
 border-radius: 0px 7px 7px 0px;
 }
 
+.user-joined-message{
+text-align: center;
+}
 .messages-avatar {
 height: 40px;
 border-radius: 50%;
 margin-right: 3px;
 margin-left: 5px;
+}
+
+.hello-avatar{
+height: 50px;}
+
+#empty-50px{
+height: 50px;
 }
