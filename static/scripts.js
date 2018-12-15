@@ -1,7 +1,7 @@
 window.onload = function() {
 
                          //https for deployment; http for localHost
-  var socket = io.connect('https://' + document.domain + ':' + location.port, {transports: ['websocket']});
+  var socket = io.connect('http://' + document.domain + ':' + location.port, {transports: ['websocket']});
   var firstConnect = true;
   var myName = "";
 
@@ -22,12 +22,14 @@ window.onload = function() {
   })
 
   socket.on('someone connected', function(displayName, avatar, usersOnlineDisplayNames, usersOnlineAvatars) {
+    console.log(firstConnect)
     if (firstConnect){
       myName = displayName;
-      firstConnect = false;
       for (var i = 0; i < usersOnlineAvatars.length; i++){
+      console.log(usersOnlineDisplayNames[i])
         addUserToOnlineDiv(usersOnlineDisplayNames[i], usersOnlineAvatars[i])
       }
+      firstConnect = false;
     } // end if
     else {
         addUserToOnlineDiv(displayName, avatar)

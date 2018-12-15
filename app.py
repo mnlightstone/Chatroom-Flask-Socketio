@@ -22,15 +22,17 @@ db.init_app(app)
 
 @app.route('/', methods =["GET", "POST"])
 def index():
-    currDisplayName = session.get('displayName')
+    print("************** 400 ************")
 
+    currDisplayName = session.get('displayName')
+    print("******************", currDisplayName, "******", usersOnlineDisplayNames)
     # if user is not logged in and are coming to the page for the first time, return login page
     if request.referrer is None:
-        print("50")
         return render_template('login.html')
 
     # if user is already logged in, return home page
     if currDisplayName in usersOnlineDisplayNames:
+        connectionEvent()
         return render_template('home.html')
 
     previousPage = request.referrer.replace(request.url_root, '')
@@ -56,6 +58,9 @@ def register():
 # socketio events
 @socketio.on('connection event')
 def connectionEvent():
+    print("connection event ************** session:", session)
+    print("connection event ************** usersOnlineDisplayNames:", usersOnlineDisplayNames)
+
     newUserDisplayName = session.get('displayName')
     newUseravatar = session.get('avatar')
     socketio.emit('someone connected', (newUserDisplayName, newUseravatar,  usersOnlineDisplayNames, usersOnlineAvatars))
@@ -63,12 +68,11 @@ def connectionEvent():
 
 @socketio.on('disconnect')
 def disconnect():
-    print(session)
     displayName = session.get("displayName")
     indexOfUser = usersOnlineDisplayNames.index(session.get("displayName"))
     usersOnlineDisplayNames.pop(indexOfUser)
     usersOnlineAvatars.pop(indexOfUser)
-    session.pop('token', None)
+    session.pop('vnkdjnfjknfl1232#', None)
 
     session.clear()
 
