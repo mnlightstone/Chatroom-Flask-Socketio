@@ -1,7 +1,7 @@
 window.onload = function() {
 
                          //https for deployment; http for localHost
-  var socket = io.connect('http://' + document.domain + ':' + location.port, {transports: ['websocket']});
+  var socket = io.connect('https://' + document.domain + ':' + location.port, {transports: ['websocket']});
   var firstConnect = true;
   var myName = "";
 
