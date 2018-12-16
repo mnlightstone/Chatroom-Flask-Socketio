@@ -92,10 +92,10 @@ def runRegisterAction():
     displayName = request.form.get("displayName").lower()
 
     if not checkUsernameUniqueness(username):
-        return render_template('error.html', message="That username already exists. Please choose again.")
+        return render_template('register.html', error="That username already exists. Please choose again.")
 
     if not checkDisplayNameUniqueness(displayName):
-        return render_template('error.html', message="That display name already exists. Please change.")
+        return render_template('register.html', error="That display name already exists. Please choose again.")
 
     # if they are unique, add them to database, add sessionID, and return home.html
     password = request.form.get("password")
