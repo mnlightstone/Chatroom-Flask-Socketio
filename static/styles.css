@@ -1,7 +1,10 @@
 #online-users-div, #messages-div{
 height: 70%;
-border: 1px solid black;
 overflow-y: scroll;
+}
+
+#messages-div{
+border: 1px solid black;
 }
 
 #sendButton{
