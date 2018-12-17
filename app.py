@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session
-from flask_socketio import SocketIO, join_room, leave_room
+from flask_socketio import SocketIO
 
 from random import randrange
 
@@ -20,10 +20,9 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 
-@app.route('/', methods =["GET", "POST"])
+@app.route('/', methods=["GET", "POST"])
 def index():
     print("************** 400 ************")
-
     currDisplayName = session.get('displayName')
     print("******************", currDisplayName, "******", usersOnlineDisplayNames)
     # if user is not logged in and are coming to the page for the first time, return login page
@@ -56,11 +55,10 @@ def register():
 
 
 # socketio events
+# print("connection event ************** session:", session)
+# print("connection event ************** usersOnlineDisplayNames:", usersOnlineDisplayNames)
 @socketio.on('connection event')
 def connectionEvent():
-    print("connection event ************** session:", session)
-    print("connection event ************** usersOnlineDisplayNames:", usersOnlineDisplayNames)
-
     newUserDisplayName = session.get('displayName')
     newUseravatar = session.get('avatar')
     socketio.emit('someone connected', (newUserDisplayName, newUseravatar,  usersOnlineDisplayNames, usersOnlineAvatars))
