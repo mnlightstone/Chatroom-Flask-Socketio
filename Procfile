@@ -1,2 +1,1 @@
-DATABASE_URL=$(heroku config:get DATABASE_URL -a your-app)
-
+web: gunicorn -k eventlet app:app
