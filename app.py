@@ -1,9 +1,6 @@
-from flask import Flask, render_template, request, session
+from flask import render_template, request, session
 from flask_socketio import SocketIO
-
 from random import randrange
-
-# Import table definitions.
 from models import *
 
 app = Flask(__name__)
@@ -12,9 +9,9 @@ socketio = SocketIO(app)
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
 
-app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://pvnzvedyxjhwxy:1d431f5a967289a935eb78ecabb44215e08f9b78b32e581606bf3b817404056b@ec2-54-227-249-201.compute-1.amazonaws.com:5432/dalq0a04mr5gi9"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 
 # Link the Flask app with the database (no Flask app is actually being run yet)
 db.init_app(app)
@@ -22,9 +19,7 @@ db.init_app(app)
 
 @app.route('/', methods=["GET", "POST"])
 def index():
-    print("************** 400 ************")
     currDisplayName = session.get('displayName')
-    print("******************", currDisplayName, "******", usersOnlineDisplayNames)
     # if user is not logged in and are coming to the page for the first time, return login page
     if request.referrer is None:
         return render_template('login.html')
@@ -54,9 +49,6 @@ def register():
     return render_template('register.html')
 
 
-# socketio events
-# print("connection event ************** session:", session)
-# print("connection event ************** usersOnlineDisplayNames:", usersOnlineDisplayNames)
 @socketio.on('connection event')
 def connectionEvent():
     newUserDisplayName = session.get('displayName')
@@ -71,9 +63,7 @@ def disconnect():
     usersOnlineDisplayNames.pop(indexOfUser)
     usersOnlineAvatars.pop(indexOfUser)
     session.pop('vnkdjnfjknfl1232#', None)
-
     session.clear()
-
     socketio.emit('disconnect event', displayName)
 
 @socketio.on('message')
@@ -85,7 +75,7 @@ def handleMessage(msg):
 
 # helper methods
 def runRegisterAction():
-    # check username and displayname uniqueness if they are not unique, send them back to registration page
+    # check username and displayname uniqueness. if they are not unique, send them back to registration page
     username = request.form.get("username").lower()
     displayName = request.form.get("displayName").lower()
 

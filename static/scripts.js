@@ -1,6 +1,6 @@
 window.onload = function() {
 
-                         //https for deployment; http for localHost
+                         //https for deployment to Heroku http for localHost
   var socket = io.connect('https://' + document.domain + ':' + location.port, {transports: ['websocket']});
   var firstConnect = true;
   var myName = "";
@@ -46,7 +46,6 @@ window.onload = function() {
 
 } //end onload
 
-// helper methods
 function addSubmitButtonListener(socket){
   $('#myMessage').on('keyup', function (e) {
     var message = $('#myMessage').val()
