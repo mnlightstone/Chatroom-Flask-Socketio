@@ -22,26 +22,23 @@ db.init_app(app)
 
 
 @app.route('/', methods=["GET", "POST"])
+
 def index():
-    print("index1")
-    print("session is:", session)
 
     currDisplayName = session.get('displayName')
     # if user is not logged in and are coming to the page for the first time, return login page
     if request.referrer is None:
-        print("in index, returning login.html")
         return render_template('login.html')
 
     # if user is already logged in, return home page
     if currDisplayName in usersOnlineDisplayNames:
         connectionEvent()
-        print("in index, returning home.html")
         return render_template('home.html')
 
     previousPage = request.referrer.replace(request.url_root, '')
+    
     # registration logic
     if previousPage == "register" and request.method == "POST":
-        print("in index, running registeraction")
         return runRegisterAction()
 
     # login logic
@@ -103,21 +100,18 @@ def runRegisterAction():
     newUser = User(username=username, password=password, display_name=displayName, avatar=randrange(1, 15))
     db.session.add(newUser)
     db.session.commit()
-    updateSession(user=username)
+    updateSession(user=newUser)
     return render_template('home.html')
 
 
 def runLoginAction():
-    print("running login")
     username = request.form.get("username").lower()
     password = request.form.get("password").lower()
     user = User.query.filter_by(username=username).first()
     if user is None or user.password != password:
-        print("returning login1")
         return render_template('login.html', error="Incorrect credentials. Please try again.")
     else:
         updateSession(user=user)
-        print("returning login2")
         return render_template('home.html')
 
 
