@@ -2,6 +2,7 @@ from flask import render_template, request, session
 from flask_socketio import SocketIO
 from random import randrange
 from models import *
+import os
 
 app = Flask(__name__)
 app.debug = False
@@ -9,9 +10,10 @@ socketio = SocketIO(app)
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
 FLASK_DEBUG = True
-
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config[
     "SQLALCHEMY_DATABASE_URI"] = "postgres://wwqmvcdhxfhbwe:3f42258582efaa918df489908dd543ca82e87c5bb09425172e488afac2edd3e6@ec2-23-23-173-30.compute-1.amazonaws.com:5432/dbuue0mpf8fbcp"
+app.secret_key = os.urandom(24)
 
 # Link the Flask app with the database (no Flask app is actually being run yet)
 db.init_app(app)
