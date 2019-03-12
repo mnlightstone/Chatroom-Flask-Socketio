@@ -17,6 +17,7 @@ db.init_app(app)
 
 
 
+
 @app.route('/', methods=["GET", "POST"])
 def index():
     print("index1")
