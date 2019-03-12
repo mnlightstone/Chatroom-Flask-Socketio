@@ -182,16 +182,16 @@ I knew that I wanted my users table to hold the following data: usernames, passw
 
 I first created an SQL table that contained columns for a unique user_id, a unique username, and password [Figure 10]. I realized that I had forgotten to add columns for display name or avatar choice, so I ran another command to add columns to the (now) existing table [Figure 11]. Finally, I then decided to change the name of avatar_choice to simply avatar, so I ran one final command to change the name of the column [Figure 12]. This experience made me realize how important it is to be deliberate when planning and creating models/tables, but I am also glad that I got the experience of writing multiple SQL statements for different cases.
 
-|![Fig 10](static/images/writeup/Screen Shot 2019-03-11 at 8.41.37 PM.png)|
+|![Fig 10](static/images/writeup/10.png)|
 | :-----------------------------------------:|
 | Figure 10: Original table creation|
 
 
-|![Fig 11](static/images/writeup/Screen Shot 2019-03-11 at 8.42.02 PM.png)|
+|![Fig 11](static/images/writeup/11.png)|
 | :-----------------------------------------:|
 | Figure 11: Adding columns to an existing table |
 
-|![Fig 12](static/images/writeup/Screen Shot 2019-03-11 at 8.42.13 PM.png)|
+|![Fig 12](static/images/writeup/12.png)|
 | :-----------------------------------------:|
 | Figure 12: Changing a column name |
 
