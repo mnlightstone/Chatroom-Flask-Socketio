@@ -2,14 +2,12 @@ from flask import render_template, request, session
 from flask_socketio import SocketIO
 from random import randrange
 from models import *
-from config import setup
 
 app = Flask(__name__)
 app.debug = False
 socketio = SocketIO(app)
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
-setup(app)
 FLASK_DEBUG = True
 
 # Link the Flask app with the database (no Flask app is actually being run yet)
