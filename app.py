@@ -4,11 +4,14 @@ from random import randrange
 from models import *
 
 app = Flask(__name__)
+
 app.debug = False
 socketio = SocketIO(app)
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
 FLASK_DEBUG = True
+db = SQLAlchemy(app)
+
 
 # Link the Flask app with the database (no Flask app is actually being run yet)
 db.init_app(app)

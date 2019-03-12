@@ -288,6 +288,16 @@ Both of these errors were fixed with changes to one line of client-side Javascri
 | :-----------------------------------------:|
 | Figure 20: Client-side socket initialization changes - from HTTP to HTTPS and long-polling to websockets |
 
+
+### UPDATE: March 11th, 2019
+Heroku deleted my database because it hadn't been used recently, so I spent some time recreating it and redeploying my app.
+
+I also decided to remove configuration variables such as the Database URL and Secret Key.
+
+    $ cd myapp
+    $ heroku config:set SQLACHEMY_DATABASE_URI='<postgres url>' SQLALCHEMY_TRACK_MODIFICATIONS=False SECRET_KEY='<secret_key>'
+    
+
 ### 2.5 Future Work
 I would still like to fulfill the following:
 * Currently the application gets confused if the same user logs in twice or opens more than one tab and behavior can be unexpected. I would like to make it so that the user can have more than one tab open and each tab will be logged in to the same profile, without duplicating their arrival messages.
