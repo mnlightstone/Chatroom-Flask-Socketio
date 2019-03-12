@@ -2,41 +2,50 @@ from flask import render_template, request, session
 from flask_socketio import SocketIO
 from random import randrange
 from models import *
+from config import setup
 
 app = Flask(__name__)
 app.debug = False
 socketio = SocketIO(app)
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
-
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://pvnzvedyxjhwxy:1d431f5a967289a935eb78ecabb44215e08f9b78b32e581606bf3b817404056b@ec2-54-227-249-201.compute-1.amazonaws.com:5432/dalq0a04mr5gi9"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
+setup(app)
+FLASK_DEBUG = True
 
 # Link the Flask app with the database (no Flask app is actually being run yet)
 db.init_app(app)
 
 
+
 @app.route('/', methods=["GET", "POST"])
 def index():
+    print("index1")
+    print("session is:", session)
+
     currDisplayName = session.get('displayName')
     # if user is not logged in and are coming to the page for the first time, return login page
     if request.referrer is None:
+        print("in index, returning login.html")
         return render_template('login.html')
 
     # if user is already logged in, return home page
     if currDisplayName in usersOnlineDisplayNames:
         connectionEvent()
+        print("in index, returning home.html")
         return render_template('home.html')
 
     previousPage = request.referrer.replace(request.url_root, '')
     # registration logic
     if previousPage == "register" and request.method == "POST":
+        print("in index, running registeraction")
         return runRegisterAction()
 
     # login logic
     if (previousPage == "" or previousPage == "/login") and request.method == "POST":
         return runLoginAction()
+
+    else:
+        return "Hello"
 
 
 @app.route("/login")
@@ -90,18 +99,21 @@ def runRegisterAction():
     newUser = User(username=username, password=password, display_name=displayName, avatar=randrange(1, 15))
     db.session.add(newUser)
     db.session.commit()
-    updateSession(username=username)
+    updateSession(user=username)
     return render_template('home.html')
 
 
 def runLoginAction():
+    print("running login")
     username = request.form.get("username").lower()
     password = request.form.get("password").lower()
     user = User.query.filter_by(username=username).first()
     if user is None or user.password != password:
+        print("returning login1")
         return render_template('login.html', error="Incorrect credentials. Please try again.")
     else:
         updateSession(user=user)
+        print("returning login2")
         return render_template('home.html')
 
 
