@@ -1,3 +1,4 @@
+import flask
 from flask import render_template, request, session
 from flask_socketio import SocketIO
 from random import randrange
@@ -12,19 +13,15 @@ usersOnlineAvatars = []
 FLASK_DEBUG = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config[
-    "SQLALCHEMY_DATABASE_URI"] = "postgres://wwqmvcdhxfhbwe:3f42258582efaa918df489908dd543ca82e87c5bb09425172e488afac2edd3e6@ec2-23-23-173-30.compute-1.amazonaws.com:5432/dbuue0mpf8fbcp"
+    "SQLALCHEMY_DATABASE_URI"] = "postgresql://wwqmvcdhxfhbwe:3f42258582efaa918df489908dd543ca82e87c5bb09425172e488afac2edd3e6@ec2-23-23-173-30.compute-1.amazonaws.com:5432/dbuue0mpf8fbcp"
 app.secret_key = os.urandom(24)
 
 # Link the Flask app with the database (no Flask app is actually being run yet)
 db.init_app(app)
 
 
-
-
 @app.route('/', methods=["GET", "POST"])
-
 def index():
-
     currDisplayName = session.get('displayName')
     # if user is not logged in and are coming to the page for the first time, return login page
     if request.referrer is None:
@@ -36,7 +33,7 @@ def index():
         return render_template('home.html')
 
     previousPage = request.referrer.replace(request.url_root, '')
-    
+
     # registration logic
     if previousPage == "register" and request.method == "POST":
         return runRegisterAction()
@@ -59,22 +56,38 @@ def register():
     return render_template('register.html')
 
 
-@socketio.on('connection event')
+@socketio.on('connectionevent')
 def connectionEvent():
+    print("connected")
     newUserDisplayName = session.get('displayName')
     newUseravatar = session.get('avatar')
-    socketio.emit('someone connected', (newUserDisplayName, newUseravatar,  usersOnlineDisplayNames, usersOnlineAvatars))
+    socketio.emit('someone connected', (newUserDisplayName, newUseravatar, usersOnlineDisplayNames, usersOnlineAvatars))
 
 
 @socketio.on('disconnect')
 def disconnect():
+    print("Disconnect")
     displayName = session.get("displayName")
     indexOfUser = usersOnlineDisplayNames.index(session.get("displayName"))
     usersOnlineDisplayNames.pop(indexOfUser)
     usersOnlineAvatars.pop(indexOfUser)
     session.pop('vnkdjnfjknfl1232#', None)
     session.clear()
-    socketio.emit('disconnect event', displayName)
+    socketio.emit('disconnectevent', displayName)
+
+
+@socketio.on('logout')  # calling logout function in the context of socket event.
+def logout():
+    print("Logout")
+    displayName = session.get("displayName")
+    indexOfUser = usersOnlineDisplayNames.index(session.get("displayName"))
+    usersOnlineDisplayNames.pop(indexOfUser)
+    usersOnlineAvatars.pop(indexOfUser)
+    session.pop('vnkdjnfjknfl1232#', None)
+    session.clear()
+    socketio.emit('disconnectevent', displayName)
+    return flask.redirect(flask.url_for('login'))
+
 
 @socketio.on('message')
 def handleMessage(msg):
