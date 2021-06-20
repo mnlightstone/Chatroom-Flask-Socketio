@@ -1,14 +1,14 @@
 window.onload = function() {
 
                          //https for deployment to Heroku http for localHost
-  var socket = io.connect('https://' + document.domain + ':' + location.port, {transports: ['websocket']});
+  var socket = io.connect('http://' + document.domain + ':' + location.port, {transports: ['websocket']});
   var firstConnect = true;
   var myName = "";
 
   addSubmitButtonListener(socket);
 
   socket.on('connect', function() {
-    socket.emit('connection event');
+    socket.emit('connectionevent');
   });
 
   socket.on('incoming message', function(msg, author, avatar){
@@ -37,12 +37,14 @@ window.onload = function() {
     } // end else
   }); // end someone connected
 
-  socket.on( 'disconnect event',  function(userWhoLeft) {
+  socket.on( 'disconnectevent',  function(userWhoLeft) {
     console.log("disconnection detected")
     let divToRemove = "." + userWhoLeft + "-user-online-div";
     $(divToRemove).remove();
     addUserChangeMessage(userWhoLeft, false)
   });
+
+
 
 } //end onload
 
